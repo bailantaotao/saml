@@ -21,4 +21,7 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - name: Run Go tests
-        run: go test -v ./...
+        run:
+        (cd samlidp && go mod edit -replace github.com/crewjam/saml=../ && cd ..)
+        go test -v ./...
+        (cd samlidp && go test -v ./... && go mod edit -dropreplace github.com/crewjam/saml && cd ..)
